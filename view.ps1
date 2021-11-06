@@ -70,7 +70,7 @@ function Get-ModList() {
     
         $api = "{0}/{1}/releases/latest" -f $releaseEndPoint, $i.Name
     
-        $result = Invoke-WebRequest -Uri $api -Headers (Get-RequestHeader)
+        $result = Invoke-WebRequest -Uri $api -Headers (Get-RequestHeader) -UseBasicParsing
         if($result.StatusCode -ne 200) {
             $i.ReleaseTitle = '取得失敗'
             "情報の取得に失敗: $" | Write-Host -ForegroundColor Red
@@ -96,7 +96,7 @@ function Download-Asset() {
         $url = $_
         $name = Get-AssetName $url
         $path = "$DownloadDir\$name"
-        $r = Invoke-WebRequest -Uri $url -OutFile $path -Headers (Get-RequestHeader)
+        $r = Invoke-WebRequest -Uri $url -OutFile $path -Headers (Get-RequestHeader) -UseBasicParsing
         $url | Write-Host -ForegroundColor Green
     }
 }
